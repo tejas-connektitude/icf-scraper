@@ -2,6 +2,9 @@ import re
 import mysql.connector
 from bs4 import BeautifulSoup
 
+from config.config import DB_CONFIG
+
+
 # ---------- Step 1: Parse the local HTML file ----------
 with open("whole_icf.html", "r", encoding="utf-8") as f:
     html = f.read()
@@ -33,12 +36,7 @@ if select:
 
 # ---------- Step 2: Insert into MySQL ----------
 try:
-    conn = mysql.connector.connect(
-        host="localhost",
-        user="root",           # change if your username is different
-        password="root",   # replace with your MySQL password
-        database="icf_db_v1"
-    )
+    conn = mysql.connector.connect(**DB_CONFIG)
     cursor = conn.cursor()
 
     for code, name in data:

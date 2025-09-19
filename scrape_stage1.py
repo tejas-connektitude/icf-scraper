@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import mysql.connector
+from config.config import DB_CONFIG
 
 # Step 1: Scrape the data
 url = "https://www.icf-core-sets.org/en/page1.php"
@@ -18,13 +19,7 @@ data = [
 ]
 
 # Step 2: Connect to MySQL
-conn = mysql.connector.connect(
-    host="localhost",      # Change if using remote DB  
-    user="root",           # Your MySQL username
-    password="root", # Your MySQL password
-    database="icf_db_v1"      # Database you created
-)
-
+conn = mysql.connector.connect(**DB_CONFIG)
 cursor = conn.cursor()
 
 # # Step 3: Create table if not exists
